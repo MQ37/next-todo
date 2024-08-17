@@ -1,0 +1,6 @@
+.env*
+node_modules/
+README.md
+flake.nix
+flake.lock
+

@@ -1,0 +1,52 @@
+services:
+  postgresql:
+    image: 'bitnami/postgresql:16.4.0'
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=postgres
+      - POSTGRESQL_DATABASE=nexttodo
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+      - 'postgresql_initdb:/docker-entrypoint-initdb.d'
+      - 'postgresql_pre_initdb:/docker-entrypoint-preinitdb.d'
+    ports:
+      - '127.0.0.1:5432:5432'
+    restart: always
+
+  init:
+    image: 'node:20.16.0-alpine'
+    env_file: .env.prod
+    volumes:
+      - '.:/app'
+      - './.env:/app/.env:null'
+    working_dir: '/app'
+    command: >
+      sh -c "
+      echo 'waiting for db to start';
+      while ! nc -z postgresql 5432; do   
+        sleep 0.1;
+      done;
+      echo 'db started';
+      npx prisma migrate deploy"
+    depends_on:
+      postgresql:
+        condition: service_started
+
+  app:
+    build: .
+    env_file: .env.prod
+    ports:
+      - '3000:3000'
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    restart: always
+
+volumes:
+  postgresql_data:
+    driver: local
+  postgresql_initdb:
+    driver: local
+  postgresql_pre_initdb:
+    driver: local
+
