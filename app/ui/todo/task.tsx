@@ -16,22 +16,34 @@ export function Task({
     const [ isEditing, setIsEditing ] = useState(false);
     const [ title, setTitle ] = useState(task.title);
     
-    function onChange() {
-        toggleTask(task.id);
+    async function onChange() {
+        const state = await toggleTask(task.id);
+        if (state.error) {
+            addAlert("Failed to update task", "error");
+            return;
+        }
     }
 
-    function onDelete() {
-        deleteTask(task.id);
+    async function onDelete() {
+        const state = await deleteTask(task.id);
+        if (state.error) {
+            addAlert("Failed to delete task", "error");
+            return;
+        }
         addAlert("Task deleted ❌", "success");
     }
 
-    function onUpdate() {
+    async function onUpdate() {
         setIsEditing(false);
 
         if (title === "" || title === task.title) return;
 
         setTitle(title);
-        updateTask(task.id, title);
+        const state = await updateTask(task.id, title);
+        if (state.error) {
+            addAlert("Failed to update task", "error");
+            return;
+        }
         addAlert("Task updated ✏️", "success");
     }
 
