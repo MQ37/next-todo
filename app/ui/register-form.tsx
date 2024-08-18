@@ -23,7 +23,7 @@ export default function RegisterForm() {
         console.log("submit", data);
 
         if (!username || !password || !passwordConfirmation) {
-            addAlert("All fields are required", "error");
+            addAlert("All fields are required 😮‍💨", "error");
             return;
         }
 
@@ -33,7 +33,7 @@ export default function RegisterForm() {
         });
 
         if (password !== passwordConfirmation) {
-            addAlert("Passwords do not match", "error");
+            addAlert("Passwords do not match 🤨", "error");
             return;
         }
 
@@ -55,12 +55,12 @@ export default function RegisterForm() {
 
         if (!state.user) {
             console.error("Something went wrong");
-            addAlert("Something went wrong", "error");
+            addAlert("Something went wrong 🙃", "error");
             return;
         }
 
         console.log("User registered", state.user);
-        addAlert("User registered", "success");
+        addAlert("User registered 👌", "success");
         router.push("/login");
     }
 

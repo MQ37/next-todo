@@ -41,11 +41,11 @@ export default function LoginForm() {
         }
 
         if (!state.user) {
-            addAlert("Something went wrong", "error");
+            addAlert("Something went wrong 🙃", "error");
             return;
         }
         
-        addAlert("Logged in", "success");
+        addAlert("Logged in 👍", "success");
         dispatch(login(state.user));
         router.push("/todo");
     }

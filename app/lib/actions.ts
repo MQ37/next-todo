@@ -79,7 +79,7 @@ export async function authenticate(
         };
     } catch (e) {
         console.error("Login error", e);
-        return { error: "Something went wrong" };
+        return { error: "Something went wrong 🙃" };
     }
 }
 

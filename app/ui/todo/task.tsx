@@ -19,7 +19,7 @@ export function Task({
     async function onChange() {
         const state = await toggleTask(task.id);
         if (state.error) {
-            addAlert("Failed to update task", "error");
+            addAlert("Failed to update task 🫠", "error");
             return;
         }
     }
@@ -27,7 +27,7 @@ export function Task({
     async function onDelete() {
         const state = await deleteTask(task.id);
         if (state.error) {
-            addAlert("Failed to delete task", "error");
+            addAlert("Failed to delete task 🫠", "error");
             return;
         }
         addAlert("Task deleted ❌", "success");
@@ -41,7 +41,7 @@ export function Task({
         setTitle(title);
         const state = await updateTask(task.id, title);
         if (state.error) {
-            addAlert("Failed to update task", "error");
+            addAlert("Failed to update task 🫠", "error");
             return;
         }
         addAlert("Task updated ✏️", "success");
